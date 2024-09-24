@@ -47,3 +47,66 @@
         return i + 1;
        }
     };
+
+4 - ques :Remove Duplicates from Sorted Array II
+- sol : class Solution {
+         public:
+        int removeDuplicates(vector<int>& nums) {
+        int n = nums.size();
+        int i = 2;
+        int j = 2;
+        if( n < 3) return n;
+        for(int j = 2; j < n;j++){
+            if(nums[j] != nums[i - 1]){
+                nums[i++] = nums[j];
+            }
+            else if(nums[j] != nums[i - 2]){
+                nums[i++] = nums[j];
+            }
+        }
+        return i;
+       }
+   };
+
+5 - ques : Majority Element
+- sol : class Solution {
+        public:
+        int majorityElement(vector<int>& nums) {
+        int n = nums.size();
+        int x = nums[0];
+        int v = 1;
+        for(int i =1 ; i < n; i++){
+            if(nums[i] == x){
+                v++;
+            }
+            else{
+                v--;
+                if(v == 0){
+                    x = nums[i];
+                    v++;
+                }
+            }
+        }
+        return x;
+         }
+       };
+
+6 - ques : Rotate Array
+- sol : class Solution {
+        public:
+        void reverse(vector<int>& nums,int s,int e){
+        while(s < e){
+            swap(nums[s++],nums[e--]);
+        }
+    }
+    void rotate(vector<int>& nums, int k) {
+        // edge case 
+        k = k % nums.size();
+        // revrese all
+        reverse(nums,0,nums.size() - 1);
+        // reverse k 
+        reverse(nums,0,k - 1);
+        // reverse remaining
+        reverse(nums,k,nums.size() - 1);
+    }
+  };
