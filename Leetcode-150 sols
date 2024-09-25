@@ -110,3 +110,42 @@
         reverse(nums,k,nums.size() - 1);
     }
   };
+
+7 - ques : Best Time to Buy and Sell Stock
+- sol : class Solution {
+         public:
+         int maxProfit(vector<int>& prices) {
+        int profit = 0;
+        int buy = prices[0];
+        int n = prices.size();
+        for(int i= 1; i <n; i++){
+            if(buy > prices[i]){
+                buy = prices[i];
+            }
+            profit = max(profit,prices[i] - buy);
+        }
+        return profit;
+    }
+};
+
+
+8 - ques : Best Time to Buy and Sell Stock II
+sol - : class Solution {
+     public:
+    int maxProfit(vector<int>& prices) {
+        int profit = 0;
+        int n = prices.size();
+        
+        // Loop through the price list, check for each consecutive day.
+        for (int i = 0; i < n - 1; i++) {
+            // If the price of the next day is greater, add the difference to the profit.
+            if (prices[i + 1] > prices[i]) {
+                profit += prices[i + 1] - prices[i];
+            }
+        }
+        
+        return profit;
+    }
+};
+
+9 - ques : Product of Array Except Self
