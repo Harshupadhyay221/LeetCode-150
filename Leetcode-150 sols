@@ -342,3 +342,20 @@ sol : - class Solution {
          return s; 
      }
  };
+
+19 : - ques : Linked List Cycle
+sol : - class Solution {
+        public:
+        bool hasCycle(ListNode *head) {
+        ListNode * curr = head;
+        unordered_map<ListNode* ,bool> mp;
+        while(curr != nullptr){
+            if(mp[curr] == 1){
+                return 1;
+            }
+             mp[curr] = 1;
+             curr = curr -> next; 
+        }
+        return 0;
+      }
+ };
