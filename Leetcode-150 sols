@@ -416,3 +416,83 @@ sol : - class Solution {
         return avg;
     }
 };
+
+
+22 : - ques : symmetric Tree
+sol : - class Solution
+{
+public:
+    bool isEqual(TreeNode *root1, TreeNode *root2)
+    {
+        if (root1 && root2) // if both nodes are not null
+        {
+            if (root1->val == root2->val) // If siblings are same
+            {
+                return isEqual(root1->left, root2->right) && isEqual(root1->right, root2->left); // step two recursion part
+            }
+            return false;
+        }
+        if (!root1 && !root2) // if both are null
+            return true;
+        return false; // if one is null but other is not null then return false
+    }
+
+    bool isSymmetric(TreeNode *root)
+    {
+        return isEqual(root->left, root->right);
+    }
+};
+
+
+23 : - ques : palindrome number
+sol : - class Solution {
+        public:
+        bool isPalindrome(int x) {
+        // Negative numbers are not palindromes
+        if (x < 0) {
+            return false;
+        }
+        
+        int revnum = 0;
+        int dup = x; // Store the original value of x
+        
+        while (x > 0) {
+            int ld = x % 10;
+            
+            // Check for overflow before updating revnum
+            if (revnum > (INT_MAX - ld) / 10) {
+                return false; // Overflow would occur
+            }
+            
+            revnum = (revnum * 10) + ld;
+            x = x / 10;
+        }
+        
+        // Compare reversed number with the original value
+        return dup == revnum;
+    }
+};
+
+
+24 : - ques : plus one
+sol : -  class Solution {
+public:
+    vector<int> plusOne(vector<int>& v) {
+        int n = v.size();
+        for(int i = n-1; i >= 0; i--){
+            if(i == n-1)
+                v[i]++;
+            if(v[i] == 10){
+                v[i] = 0;
+                if(i != 0){
+                    v[i-1]++;
+                }
+                else{
+                    v.push_back(0);
+                    v[i] = 1;
+                }
+            }
+        }
+        return v;
+    }
+};
