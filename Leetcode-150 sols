@@ -496,3 +496,41 @@ public:
         return v;
     }
 };
+
+
+25 : - ques  : Binary Tree Right Side View
+Sol : - class Solution {
+         public:
+         vector<int> rightSideView(TreeNode* root) {
+              // Your Code here
+        vector<int> ans;
+    
+    if (!root) return ans;  // Return an empty vector if the root is null
+
+    queue<TreeNode*> q;
+    q.push(root);
+
+    while (!q.empty()) {
+        int n = q.size();
+        
+        // Add the leftmost node's data of the current level to ans
+        ans.push_back(q.front()->val);
+
+        // Traverse the current level
+        for (int i = 0; i < n; i++) {
+            TreeNode *temp = q.front();
+            q.pop();
+
+            // Push left child to the queue
+            if (temp->right)
+                q.push(temp->right);
+            // Push right child to the queue
+            if (temp->left)
+                q.push(temp->left);
+        }
+    }
+
+    return ans;
+        
+    }
+};
