@@ -548,3 +548,26 @@ sol : -  class Solution {
         return c;
     }
 };
+
+
+27 : - Find Minimum in Rotated Sorted Array
+sol : - class Solution {
+        public:
+       int findMin(vector<int>& nums) {
+        int left = 0, right = nums.size() - 1;
+        
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            
+            // If mid element is greater than the right element, min must be to the right of mid
+            if (nums[mid] > nums[right]) {
+                left = mid + 1;
+            } else { // If mid element is less than or equal to the right element, min must be at mid or to the left of mid
+                right = mid;
+            }
+        }
+        
+        // At the end of the loop, left == right and pointing to the smallest element
+        return nums[left];
+    }
+};
