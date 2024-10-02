@@ -571,3 +571,95 @@ sol : - class Solution {
         return nums[left];
     }
 };
+
+
+28 : - ques : Valid Parentheses
+sol : - class Solution {
+        public:
+        bool isValid(string s) {
+        stack<char> st;
+        for (int i = 0; i < s.size(); i++) {
+            if (s[i] == '(' || s[i] == '{' || s[i] == '[') {
+                st.push(s[i]);
+            } else {
+                if (st.empty()) return false;
+                char top = st.top();
+                if ((s[i] == ')' && top == '(') ||
+                    (s[i] == '}' && top == '{') ||
+                    (s[i] == ']' && top == '[')) {
+                    st.pop();
+                } else {
+                    return false;
+                }
+            }
+        }
+        return st.empty();
+    }
+};
+
+29.) ques : Candy 
+sol : - class Solution {
+         public:
+         int candy(vector<int>& ratings) {
+        int n = ratings.size();
+        // edge case 
+        if(n == 1) return 1;
+        
+        vector<int> ans(n, 1); // Initialize with 1 candy for each child
+        
+        // left to right traverse
+        for(int i = 1; i < n; i++) {
+            if(ratings[i] > ratings[i - 1]) {
+                ans[i] = ans[i - 1] + 1;
+            }
+        }
+        
+        // right to left traverse
+        for(int i = n - 2; i >= 0; i--) {
+            if(ratings[i] > ratings[i + 1]) {
+                ans[i] = max(ans[i], ans[i + 1] + 1);
+            }
+        }
+        
+        // calculate total candies
+        int candies = 0;
+        for(int i = 0; i < n; i++) {
+            candies += ans[i];
+        }
+        
+        return candies;
+    }
+};
+
+
+30) : - ques : Traping Rain water
+sol : - class Solution {
+public:
+    int trap(vector<int>& height) {
+        int n = height.size();
+        if (n == 0) return 0;
+        
+        vector<int> left(n);
+        vector<int> right(n);
+        
+        // Fill left array
+        left[0] = height[0];
+        for (int i = 1; i < n; i++) {
+            left[i] = max(left[i - 1], height[i]);
+        }
+        
+        // Fill right array
+        right[n - 1] = height[n - 1];
+        for (int i = n - 2; i >= 0; i--) {
+            right[i] = max(right[i + 1], height[i]);
+        }
+        
+        // Calculate trapped water
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            ans += min(left[i], right[i]) - height[i];
+        }
+        
+        return ans;
+    }
+};
