@@ -744,3 +744,22 @@ sol : - class Solution {
         return ths[num/1000] + hrns[(num%1000)/100] + tens[(num%100)/10] + ones[num%10];
     }
 };
+
+35 :- ques : - Length of Last Word
+sol : - class Solution {
+        public:
+        int lengthOfLastWord(string s) {
+        int len = 0;
+        bool count = false;
+        for(int i = s.length() - 1 ; i >= 0; i--){
+            if(s[i] != ' '){
+                count  = true;
+                len++;
+            }
+            else if(count){
+                break ;
+            }
+        }
+        return len;
+    }
+};
