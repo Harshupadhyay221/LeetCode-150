@@ -891,3 +891,40 @@ Sol : - class Solution {
         return ans;
     }
 };
+
+
+41 : - Ques :- Maximum Subarray
+Sol :- class Solution {
+        public:
+        int maxSubArray(vector<int>& nums) {
+        int sum = 0;
+        int ans = INT_MIN;
+        for(int i = 0; i<nums.size();i++){
+            // sum negative ho to dobara sum shuru kro 
+            if(sum < 0) sum = nums[i];
+            else{   
+                sum += nums[i];
+            }
+            ans = max(ans,sum);
+        }
+        return ans;
+    }
+};
+
+42 : - Ques :- Longest Common Prefix
+Sol :- class Solution {
+       public:
+      string longestCommonPrefix(vector<string>& v) {
+        string ans="";
+        sort(v.begin(),v.end());
+        int n=v.size();
+        string first=v[0],last=v[n-1];
+        for(int i=0;i<min(first.size(),last.size());i++){
+            if(first[i]!=last[i]){
+                return ans;
+            }
+            ans+=first[i];
+        }
+        return ans;
+    }
+};
