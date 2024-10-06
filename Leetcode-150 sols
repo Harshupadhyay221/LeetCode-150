@@ -863,3 +863,31 @@ Sol : - class Solution {
         return head;
     }
 };
+
+
+40 : - ques :- Sqrt(x)
+Sol : - class Solution {
+        public:
+        int mySqrt(int x) {
+       long long s = 1 , e = x , mid;
+        long long ans ;
+        while (s  <= e)
+        {
+            mid = s + (e -s) / 2;
+            if(mid * mid == x)
+            {
+                ans = mid;
+                break;
+            }
+            else if (mid * mid < x)
+            {   
+                ans = mid ;
+                s = mid + 1 ;
+            }
+            else {
+                e = mid - 1 ;
+            }
+        }   
+        return ans;
+    }
+};
