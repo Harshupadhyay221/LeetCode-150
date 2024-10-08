@@ -1018,3 +1018,92 @@ Sol :- class Solution {
         }
     }
 };
+
+
+46 : Ques :- Median of Two Sorted Arrays
+Sol :- class Solution {
+       public:
+       double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        vector<int> ans;
+        for(int i = 0; i < nums1.size(); i++)
+        {
+            ans.push_back(nums1[i]);   
+        }
+        for(int i  = 0; i < nums2.size(); i++)
+        {
+            ans.push_back(nums2[i]);
+        }
+        
+         sort(ans.begin(),ans.end());
+         int s = 0;
+         int e = ans.size() - 1;
+         int m = (s + e ) / 2 ;
+        if(ans.size() % 2 == 1) {
+            return ans[m];
+        }
+        // even
+        if(ans.size() % 2 ==0){
+       float k = (ans[m] + ans[m + 1]) / 2.0;
+       return k;
+    }
+    return 0;
+    }
+};
+
+47 : Ques :- Construct Binary Tree from Inorder and Postorder Traversal
+Sol :- class Solution {
+       public:
+    // Function to find the index of the target value in the inorder array
+    int find(vector<int>& inorder, int target, int start, int end) {
+        for (int i = start; i <= end; i++) {
+            if (inorder[i] == target)
+                return i;
+        }
+        return -1;
+    }
+
+    // Recursive function to build the tree
+    TreeNode* Tree(vector<int>& inorder, vector<int>& postorder, int instart, int inend, int index) {
+        if (instart > inend) return nullptr;
+
+        
+        TreeNode* root = new TreeNode(postorder[index]);
+
+        // Find the position of the root in the inorder array
+        int pos = find(inorder, postorder[index], instart, inend);
+
+        //  right 
+        root->right = Tree(inorder, postorder, pos + 1, inend, index - 1);
+
+        //  left 
+        root->left = Tree(inorder, postorder, instart, pos - 1, index - (inend - pos) - 1);
+
+        return root;
+    }
+
+  
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        int n = inorder.size();
+        return Tree(inorder, postorder, 0, n - 1, n - 1);
+    }
+};
+
+48 :- Ques :- Single Element in a Sorted Array
+Sol :- class Solution {
+        public:
+        int singleNonDuplicate(vector<int>& nums) {
+        int n = nums.size();
+        int ans = 0;
+        unordered_map<int,int> mp;
+        for(int i = 0; i < n; i++){
+            mp[nums[i]]++;
+        }
+        for(auto it : mp){
+            if(it.second == 1){
+                ans = it.first;
+                break;
+            }
+        }
+        return ans;
+    }
+};
