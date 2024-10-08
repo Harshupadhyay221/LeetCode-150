@@ -967,3 +967,29 @@ Sol :- class Solution {
         return ans;
     }
 };
+
+
+44 :- Ques :- Binary Tree Maximum Path Sum
+Sol:-  class Solution {
+       public:
+       int pathsum(TreeNode* root, int &sum) {
+        // If the root doesn't exist, return 0
+        if (!root) return 0;
+
+        // Recursively calculate the max path sum for the left and right subtrees
+        int left = max(0, pathsum(root->left, sum)); 
+        int right = max(0, pathsum(root->right, sum));
+
+        // Calculate the maximum path sum passing through the current node
+        sum = max(sum, root->val + left + right);
+
+        // Return the maximum path sum ending at this node
+        return root->val + max(left, right);
+    }
+
+    int maxPathSum(TreeNode* root) {
+        int sum = INT_MIN;  
+        pathsum(root, sum); 
+        return sum;  
+    }
+};
