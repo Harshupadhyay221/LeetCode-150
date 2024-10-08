@@ -993,3 +993,28 @@ Sol:-  class Solution {
         return sum;  
     }
 };
+
+
+45 : Ques:- Flatten Binary Tree to Linked List
+Sol :- class Solution {
+       public:
+      void flatten(TreeNode* root) {
+        while(root)
+        {
+            // if left tree doesnt exist
+            if(!root -> left)
+            root = root -> right;
+            else{
+                // if left subtree exist
+                TreeNode * curr = root -> left;
+                while(curr -> right){
+                    curr = curr -> right;
+                }
+                curr -> right = root -> right;
+                root -> right = root -> left;
+                root -> left = nullptr;
+                root = root -> right;
+            }
+        }
+    }
+};
