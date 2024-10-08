@@ -928,3 +928,42 @@ Sol :- class Solution {
         return ans;
     }
 };
+
+
+43 :- Ques :-  Binary Tree Zigzag Level Order Traversal
+Sol :- class Solution {
+       public:
+       vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        vector<vector<int>>ans;
+        vector<int>level;
+        stack<TreeNode*>stk1; // left to right visit
+        stack<TreeNode*>stk2; // right to left visit 
+
+        if(!root)return ans;  // empty Binary Tree
+
+        stk1.push(root);
+        while(!stk1.empty() || !stk2.empty()){
+            if(!stk1.empty()){ // stk1 is not empty => left to right access and during left to right visit store next level's nodes in stk2 so that we can access next level in right to left 
+                while(!stk1.empty()){
+                    TreeNode* node=stk1.top();
+                    stk1.pop();
+                    level.push_back(node->val);
+                    if(node->left)stk2.push(node->left);  // push left child then right child so that in the next level we get it in right to left ( LIFO )
+                    if(node->right)stk2.push(node->right);  
+                }
+            }
+            else if(!stk2.empty()){  // right to left access and during right to left visit store next level's nodes in stk1 so that we can access next level in left to right 
+                while(!stk2.empty()){
+                    TreeNode* node=stk2.top();
+                    stk2.pop();
+                    level.push_back(node->val);
+                    if(node->right)stk1.push(node->right);  // push right child then left child so that in the next level we get it in left to right (LIFO)
+                    if(node->left)stk1.push(node->left);
+                }
+            }
+            ans.push_back(level);
+            level.erase(level.begin(),level.end());
+        }
+        return ans;
+    }
+};
