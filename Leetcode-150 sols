@@ -1175,3 +1175,94 @@ public:
         return mini;
     }
 };
+
+
+52 :- Ques :Find First and Last Position of Element in Sorted Array
+Sol :- class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int start = 0;
+        int end = nums.size() - 1;
+        int first = -1 , last = -1 ;
+        int mid ;
+
+        // Finding the first occurrence
+        while(start <= end) {
+            mid = start + (end - start) / 2;
+            if(nums[mid] == target) {
+                first = mid;
+                end = mid - 1; // Keep searching in the left half
+            } else if (nums[mid] < target) {
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+
+        start = 0;
+        end = nums.size() - 1;
+
+        // Finding the last occurrence
+        while(start <= end) {
+            mid = start + (end - start) / 2;
+            if(nums[mid] == target) {
+                last = mid;
+                start = mid + 1; // Keep searching in the right half
+            } else if (nums[mid] < target) {
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+
+        vector<int> ans(2);
+        ans[0] = first;
+        ans[1] = last;
+        return ans;
+    }
+};
+
+52 :- Ques :- Search in Rotated Sorted Array
+Sol :- class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int ans = -1 ,s = 0 , e = nums.size() - 1 , mid ;
+        while (s <= e)
+        {   mid = s + ( e - s) / 2;
+            if(nums[mid] == target) return mid;
+            // left side me sorted hai
+            else if (nums[mid] >= nums[0]){
+            if(nums[s] <= target && nums[mid] >= target)
+            e = mid - 1 ;
+            else
+            s = mid + 1 ;
+            }
+            else {
+                // right side me sort hai
+            if(nums[mid] <= target && nums[e] >= target)
+            s = mid+1;
+            else {
+                e = mid - 1;
+            }
+            }
+        }
+    return -1;
+    }
+};
+
+53 :- Ques :- Climbing Stairs
+Sol :- class Solution {
+    public:
+    int climbStairs(int n) {
+        if (n == 0 || n == 1) {
+            return 1;
+        }
+        int prev = 1, curr = 1;
+        for (int i = 2; i <= n; i++) {
+            int temp = curr;
+            curr = prev + curr;
+            prev = temp;
+        }
+        return curr;
+    }
+};
