@@ -1345,3 +1345,65 @@ public:
         
     }
 };
+
+
+57 : ques :- Find the Index of the First Occurrence in a String
+Sol :- class Solution {
+public:
+    // Function to create the LPS (Longest Prefix which is also Suffix) array
+    void computeLPSArray(string& needle, int n, vector<int>& lps) {
+        int length = 0; 
+        int i = 1;
+        lps[0] = 0; /
+        
+        // Loop to fill the lps array
+        while (i < n) {
+            if (needle[i] == needle[length]) {
+                length++;
+                lps[i] = length;
+                i++;
+            } else {
+                if (length != 0) {
+                    length = lps[length - 1];
+                } else {
+                    lps[i] = 0;
+                    i++;
+                }
+            }
+        }
+    }
+    
+    int strStr(string haystack, string needle) {
+        int s = haystack.size();
+        int n = needle.size();
+        
+        if (n == 0) return 0; // If needle is empty, return 0
+        if (s < n) return -1; // If haystack is smaller than needle, return -1
+        
+        // Create LPS array for the needle
+        vector<int> lps(n);
+        computeLPSArray(needle, n, lps);
+        
+        int i = 0; // index for haystack
+        int j = 0; // index for needle
+        
+        while (i < s) {
+            if (haystack[i] == needle[j]) {
+                i++;
+                j++;
+            }
+            
+            if (j == n) {
+                return i - j; // Found needle in haystack
+            } else if (i < s && haystack[i] != needle[j]) {
+                if (j != 0) {
+                    j = lps[j - 1];
+                } else {
+                    i++;
+                }
+            }
+        }
+        
+        return -1; // Needle not found
+    }
+};
